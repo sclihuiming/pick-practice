@@ -1,0 +1,12 @@
+{
+  "name": "pick-practice",
+  "version": "1.0.0",
+  "keywords": [
+    "leetcode",
+    "javascript",
+    "Node.js",
+    "algorithms"
+  ],
+  "dependencies": {
+  }
+}

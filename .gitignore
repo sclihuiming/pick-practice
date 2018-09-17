@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+/logs
+.idea
+/node_modules
+/.DS_Store
+package-lock.json
+algorithms/
+leetcode/
