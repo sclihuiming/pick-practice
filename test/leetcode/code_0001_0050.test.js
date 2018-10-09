@@ -3,6 +3,7 @@ const assert = require('power-assert');
 const {twoSum} = require('../../leetcode/0001_两数之和/two-sum');
 const {addTwoNumbers} = require('../../leetcode/0002_两数相加/two-add');
 const {lengthOfLongestSubstring} = require('../../leetcode/0003_无重复字符的最长子串/longest_length');
+const {smile} = require('../../leetcode/0004_两个排序数组的中位数/action');
 
 describe('leetcode 0001 two-sum', function () {
     it('should return [0, 1]', function () {
@@ -45,6 +46,16 @@ describe('leetcode 0003 无重复字符的最长子串', function () {
 
     it('should return 7', function () {
         assert.equal(7, lengthOfLongestSubstring('acsddeslldaewabcdef'));
+    });
+});
+
+describe('leetcode 0004 数组中位数', function () {
+    it('should return 3', function () {
+        assert.equal(3, smile([1, 2, 3], [3, 4, 5]));
+    });
+
+    it('should return 2.5', function () {
+        assert.equal(2.5, smile([1, 2], [3, 4]));
     });
 });
 
