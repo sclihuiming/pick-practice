@@ -106,9 +106,27 @@ let myAtoi = function (str) {
 };
 
 
+/**
+ * 第9题  回文数
+ * @param {number} x
+ * @return {boolean}
+ */
+let isPalindrome = function (x) {
+
+    if (x < 0 || (x % 10 === 0 && x !== 0)) {
+        return false;
+    }
+    let num = 0;
+    while (x > num) {
+        num = num * 10 + x % 10;
+        x = Math.floor(x / 10);
+    }
+    return x === num || x === Math.floor(num / 10);
+};
 
 module.exports = {
     convert: convert,
     reverse: reverse,
-    myAtoi: myAtoi
+    myAtoi: myAtoi,
+    isPalindrome: isPalindrome
 };

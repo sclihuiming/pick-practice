@@ -5,7 +5,7 @@ const {addTwoNumbers} = require('../../leetcode/0002_两数相加/two-add');
 const {lengthOfLongestSubstring} = require('../../leetcode/0003_无重复字符的最长子串/longest_length');
 const {smile} = require('../../leetcode/0004_两个排序数组的中位数/action');
 const {smile5} = require('../../leetcode/0005_最长回文子串/action');
-const {convert, reverse, myAtoi} = require('../../leetcode/0006-0099/action');
+const {convert, reverse, myAtoi, isPalindrome} = require('../../leetcode/0006-0099/action');
 
 
 describe('letcode 0001_0050 test', function () {
@@ -114,6 +114,15 @@ describe('letcode 0001_0050 test', function () {
             assert.equal(-2147483648, myAtoi('-91283472332'));
             assert.equal(0, myAtoi('  -'));
             assert.equal(0, myAtoi(' '));
+        });
+        it('should not throw err by 00009', function () {
+            assert.equal(true, isPalindrome(121));
+            assert.equal(true, isPalindrome(1221));
+            assert.equal(true, isPalindrome(12121));
+            assert.equal(true, isPalindrome(1222222221));
+            assert.equal(true, isPalindrome(0));
+            assert.equal(false, isPalindrome(123));
+            assert.equal(false, isPalindrome(-121));
         });
     });
 });
