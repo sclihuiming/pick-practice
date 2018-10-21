@@ -5,7 +5,7 @@ const {addTwoNumbers} = require('../../leetcode/0002_两数相加/two-add');
 const {lengthOfLongestSubstring} = require('../../leetcode/0003_无重复字符的最长子串/longest_length');
 const {smile} = require('../../leetcode/0004_两个排序数组的中位数/action');
 const {smile5} = require('../../leetcode/0005_最长回文子串/action');
-const {convert, reverse} = require('../../leetcode/0006-0099/action');
+const {convert, reverse, myAtoi} = require('../../leetcode/0006-0099/action');
 
 
 describe('letcode 0001_0050 test', function () {
@@ -102,6 +102,18 @@ describe('letcode 0001_0050 test', function () {
 
         it('should return -321 by another method', function () {
             assert.equal(-321, reverse(-123, 1));
+        });
+    });
+
+    describe('leetcode 0008 字符串转整数', function () {
+        it('0008 should not throw err', function () {
+            assert.equal(45, myAtoi(' 45'));
+            assert.equal(-45, myAtoi('    -45'));
+            assert.equal(4103, myAtoi('    4103 with you'));
+            assert.equal(0, myAtoi('word with 4103'));
+            assert.equal(-2147483648, myAtoi('-91283472332'));
+            assert.equal(0, myAtoi('  -'));
+            assert.equal(0, myAtoi(' '));
         });
     });
 });

@@ -89,8 +89,26 @@ let reverse = function (x, way) {
 
 };
 
+/**
+ * 0008 -字符串转整数(atoi)
+ * @param {string} str
+ * @return {number}
+ */
+let myAtoi = function (str) {
+    let _num = parseInt(str) || 0; //parseInt就有这个功能
+    if (_num < Math.pow(-2, 31)) {
+        return Math.pow(-2, 31);
+    } else if (_num > (Math.pow(2, 31) - 1)) {
+        return Math.pow(2, 31) - 1;
+    } else {
+        return _num;
+    }
+};
+
+
 
 module.exports = {
     convert: convert,
-    reverse: reverse
+    reverse: reverse,
+    myAtoi: myAtoi
 };
