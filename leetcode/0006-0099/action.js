@@ -124,9 +124,49 @@ let isPalindrome = function (x) {
     return x === num || x === Math.floor(num / 10);
 };
 
+/**
+ * 第10题 正则表达式匹配   - 递归
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+let isMatch = function (s, p) {
+    let sLen = s.length;
+    // console.log(s, p)
+    let pLen = p.length;
+
+    //special case
+    if (pLen === 0 && sLen === 0) {
+        return true;
+    }
+    if (pLen === 1) {
+        return (p === s || p === '.') && sLen === 1;
+    }
+    if (p.charAt(pLen - 1) !== '*' && p.charAt(pLen - 1) !== '.' && p.charAt(pLen - 1) !== s.charAt(sLen - 1)) {
+        return false;
+    }
+
+    if (p.charAt(1) === '*') {//当第二个字符是*是时候
+        while (s.length > 0 && (p.charAt(0) === s.charAt(0) || p.charAt(0) === '.')) {//当第一个字符匹配成功
+            if (isMatch(s, p.substring(2))) {//递归后面的能不能成功,能成功的话,就不用再考虑第一次匹配的了
+                return true;
+            }
+            s = s.substring(1);
+        }
+        return isMatch(s, p.substring(2));
+    } else {
+        if (sLen > 0 && (p.charAt(0) === s.charAt(0) || p.charAt(0) === '.')) {
+            return isMatch(s.substring(1), p.substring(1));
+        }
+        return false;
+    }
+};
+
+
 module.exports = {
     convert: convert,
     reverse: reverse,
     myAtoi: myAtoi,
-    isPalindrome: isPalindrome
+    isPalindrome: isPalindrome,
+    isMatch: isMatch
 };
