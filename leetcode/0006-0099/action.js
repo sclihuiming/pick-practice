@@ -162,11 +162,29 @@ let isMatch = function (s, p) {
     }
 };
 
+/**
+ * 第11题  盛最多水的容器
+ * @param {number[]} height
+ * @return {number}
+ */
+let maxArea = function (height) {
+    let length = height.length;
+    let area = 0;
+    for (let i = 0; i < length - 1; i++) {
+        for (let j = i + 1; j < length; j++) {
+            let hh = Math.min(height[i], height[j]);
+            area = Math.max(area, hh * (j - i));
+        }
+    }
+    return area;
+};
+
 
 module.exports = {
     convert: convert,
     reverse: reverse,
     myAtoi: myAtoi,
     isPalindrome: isPalindrome,
-    isMatch: isMatch
+    isMatch: isMatch,
+    maxArea: maxArea
 };
