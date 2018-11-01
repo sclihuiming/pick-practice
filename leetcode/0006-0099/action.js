@@ -198,7 +198,7 @@ let maxArea2 = function (height) {
  * @return {string}
  */
 let intToRoman = function (num) {
-    let values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    let values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]; //枚举出可以表示的特殊情况
     let romanWords = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
     let len = values.length;
     let res = [];
@@ -214,6 +214,35 @@ let intToRoman = function (num) {
     return res.join('');
 };
 
+/**
+ * 13题 罗马字符转数字
+ * @param {string} s
+ * @return {number}
+ */
+let romanToInt = function (s) {
+    let mapper = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    };
+    let res = 0;
+    let front = 0;
+    let len = s.length;
+    for (let i = 0; i < len; i++) {
+        let cur = mapper[s.charAt(i)];
+        if (front > 0 && front < cur) {
+            cur = cur - 2 * front;
+            front = 0;
+        }
+        res += cur;
+        front = cur;
+    }
+    return res;
+};
 
 
 module.exports = {
