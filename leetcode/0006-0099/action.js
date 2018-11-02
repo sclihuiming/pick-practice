@@ -230,18 +230,49 @@ let romanToInt = function (s) {
         'M': 1000
     };
     let res = 0;
-    let front = 0;
+    // let front = 0;
     let len = s.length;
     for (let i = 0; i < len; i++) {
         let cur = mapper[s.charAt(i)];
-        if (front > 0 && front < cur) {
-            cur = cur - 2 * front;
-            front = 0;
-        }
         res += cur;
-        front = cur;
+        if (i > 0 && mapper[s.charAt(i - 1)] < cur) {
+            res = res - 2 * mapper[s.charAt(i - 1)];
+        }
     }
     return res;
+};
+
+/**
+ * 14题 最长公共前缀
+ * @param {string[]} strs
+ * @return {string}
+ */
+let longestCommonPrefix = function (strs) {
+    if (!strs || strs.length === 0) { //数组为undefined或者为空时
+        return '';
+    }
+    let len = strs.length;
+    if (len === 1) { //只有一个数字元素时
+        return strs[0];
+    }
+    let res = '';
+    while (true) {
+        let tag = '';
+        let index = res.length;
+        for (let i = 0; i < len; i++) {
+            if (i === 0) {
+                tag = strs[i].charAt(index);
+                if(!tag){ //第一个元素是""时
+                    return res;
+                }
+            } else {
+                if (strs[i].charAt(index) !== tag) {
+                    return res;
+                }
+            }
+        }
+        res += tag;
+    }
 };
 
 
@@ -251,5 +282,7 @@ module.exports = {
     myAtoi: myAtoi,
     isPalindrome: isPalindrome,
     isMatch: isMatch,
-    maxArea: maxArea
+    maxArea: maxArea,
+    romanToInt: romanToInt,
+
 };
