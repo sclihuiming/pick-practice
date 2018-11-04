@@ -361,7 +361,44 @@ let threeSumClosest = function (nums, target) {
     return res;
 };
 
-// console.log(threeSumClosest([0,1,2],0))
+
+/**
+ * 17. 电话号码的字母组合
+ * @param {string} digits
+ * @return {string[]}
+ */
+let letterCombinations = function (digits) {
+    let digui = function (newDigits, res, s) {
+        if (!newDigits) {
+            if (s) {
+                res.push(s);
+            }
+            return res;
+        }
+        mapper[+(newDigits.charAt(0))].forEach(function (word) {
+            digui(newDigits.substring(1), res, s + word);
+        });
+    };
+    let mapper = [[], [],
+        ['a', 'b', 'c'],
+        ['d', 'e', 'f'],
+        ['g', 'h', 'i'],
+        ['j', 'k', 'l'],
+        ['m', 'n', 'o'],
+        ['p', 'q', 'r', 's'],
+        ['t', 'u', 'v'],
+        ['w', 'x', 'y', 'z']
+    ];
+    let len = digits.length;
+    let res = [];
+    if (digits === '') {
+        return res;
+    }
+    digui(digits, res, '');
+    return res;
+};
+
+// console.log(letterCombinations('6'))
 
 
 module.exports = {
