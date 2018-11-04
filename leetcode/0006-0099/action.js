@@ -262,7 +262,7 @@ let longestCommonPrefix = function (strs) {
         for (let i = 0; i < len; i++) {
             if (i === 0) {
                 tag = strs[i].charAt(index);
-                if(!tag){ //第一个元素是""时
+                if (!tag) { //第一个元素是""时
                     return res;
                 }
             } else {
@@ -274,6 +274,55 @@ let longestCommonPrefix = function (strs) {
         res += tag;
     }
 };
+
+/**
+ * 15题  三数之和
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+let threeSum = function (nums) {
+    let sortNumber = function (a, b) {
+        return a - b
+    };
+    let len = nums.length;
+    if (len < 3) {
+        return [];
+    }
+    let res = [];
+    nums = nums.sort(sortNumber);
+    for (let i = 0; i < len; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+        if (nums[i] <= 0) {
+            let target = 0 - nums[i];
+            let ln = i + 1, rn = len - 1;
+            while (ln < rn) {
+                let tempNum = nums[ln] + nums[rn];
+                if (tempNum === target) {
+                    res.push([nums[i], nums[ln], nums[rn]]);
+                    while (ln < rn && nums[ln] === nums[ln + 1]) {
+                        ln++;
+                    }
+                    while (ln < rn && nums[rn] === nums[rn - 1]) {
+                        rn--;
+                    }
+                    ln++;
+                    rn--;
+                } else if (tempNum < target) {
+                    ln++;
+                } else if (tempNum > target) {
+                    rn--;
+                }
+            }
+        } else {
+            break;
+        }
+    }
+    return res;
+};
+
+console.log(threeSum([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6]))
 
 
 module.exports = {
