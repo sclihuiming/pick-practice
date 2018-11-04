@@ -322,7 +322,46 @@ let threeSum = function (nums) {
     return res;
 };
 
-console.log(threeSum([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6]))
+/**
+ * 16题  最接近的三数之和
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+let threeSumClosest = function (nums, target) {
+    let sortNumber = function (a, b) {
+        return a - b
+    };
+    let len = nums.length;
+    if (len < 3) {
+        return 0;
+    }
+    let res = Infinity;
+    nums = nums.sort(sortNumber);
+    for (let i = 0; i < len; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+        let ln = i + 1, rn = len - 1;
+        while (ln < rn) {
+            let tempNum = nums[ln] + nums[rn] + nums[i];
+            if (tempNum === target) {
+                return target;
+            } else if (tempNum < target) {
+                ln++;
+            } else if (tempNum > target) {
+                rn--;
+            }
+            if (Math.abs(tempNum - target) < Math.abs(res - target)) {
+                res = tempNum;
+            }
+        }
+
+    }
+    return res;
+};
+
+// console.log(threeSumClosest([0,1,2],0))
 
 
 module.exports = {
