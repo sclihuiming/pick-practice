@@ -449,6 +449,42 @@ let fourSum = function (nums, target) {
     return res;
 };
 
+/**
+ *  第19题  删除链表的倒数第N个节点
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+let removeNthFromEnd = function (head, n) {
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+    let temp = new ListNode(0);
+    temp.next = head;
+    let len = 0;
+    let first = head;
+    while (first) {
+        len++;
+        first = first.next;
+    }
+    len -= n;
+    first = temp;
+    while (len > 0) {
+        len--;
+        first = first.next;
+    }
+    first.next = first.next.next;
+    return temp.next;
+};
+
 
 module.exports = {
     convert: convert,
@@ -462,5 +498,6 @@ module.exports = {
     threeSum: threeSum,
     threeSumClosest: threeSumClosest,
     letterCombinations: letterCombinations,
-    fourSum: fourSum
+    fourSum: fourSum,
+    removeNthFromEnd: removeNthFromEnd
 };
