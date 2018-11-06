@@ -398,7 +398,56 @@ let letterCombinations = function (digits) {
     return res;
 };
 
-// console.log(letterCombinations('6'))
+
+/**
+ * 18题  四数之和
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+let fourSum = function (nums, target) {
+    let sortNumber = function (a, b) {
+        return a - b
+    };
+    let len = nums.length;
+    if (len < 4) {
+        return [];
+    }
+    let res = [];
+    nums = nums.sort(sortNumber);
+
+    for (let i = 0; i < len - 3; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) {
+            continue;
+        }
+        for (let j = i + 1; j < len - 2; j++) {
+            if (j !== i + 1 && nums[j] === nums[j - 1]) {
+                continue;
+            }
+            let tar = target - nums[i];
+            let ln = j + 1, rn = len - 1;
+            while (ln < rn) {
+                let tempNum = nums[ln] + nums[rn] + nums[j];
+                if (tempNum === tar) {
+                    res.push([nums[i], nums[j], nums[ln], nums[rn]]);
+                    while (ln < rn && nums[ln] === nums[ln + 1]) {
+                        ln++;
+                    }
+                    while (ln < rn && nums[rn] === nums[rn - 1]) {
+                        rn--;
+                    }
+                    ln++;
+                    rn--;
+                } else if (tempNum < tar) {
+                    ln++;
+                } else if (tempNum > tar) {
+                    rn--;
+                }
+            }
+        }
+    }
+    return res;
+};
 
 
 module.exports = {
@@ -409,5 +458,9 @@ module.exports = {
     isMatch: isMatch,
     maxArea: maxArea,
     romanToInt: romanToInt,
-
+    longestCommonPrefix: longestCommonPrefix,
+    threeSum: threeSum,
+    threeSumClosest: threeSumClosest,
+    letterCombinations: letterCombinations,
+    fourSum: fourSum
 };
