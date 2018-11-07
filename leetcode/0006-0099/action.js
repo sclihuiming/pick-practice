@@ -467,6 +467,7 @@ let removeNthFromEnd = function (head, n) {
         this.val = val;
         this.next = null;
     }
+
     let temp = new ListNode(0);
     temp.next = head;
     let len = 0;
@@ -483,6 +484,40 @@ let removeNthFromEnd = function (head, n) {
     }
     first.next = first.next.next;
     return temp.next;
+};
+
+/**
+ * 20题 有效的括号 --解法 数组模仿栈
+ * @param {string} s
+ * @return {boolean}
+ */
+let isValid = function (s) {
+    if (s === '') {
+        return true;
+    }
+    let len = s.length;
+    if (len % 2 === 1) {
+        return false;
+    }
+    let mapper = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    };
+    let stack = [];
+
+    for (let i = 0; i < len; i++) {
+        let word = s.charAt(i);
+        if (mapper[word]) {
+            let popEle = stack.length > 0 ? stack.pop() : '*';
+            if (popEle !== mapper[word]) {
+                return false
+            }
+        } else {
+            stack.push(word)
+        }
+    }
+    return stack.length === 0;
 };
 
 
