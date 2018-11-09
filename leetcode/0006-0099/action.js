@@ -560,6 +560,33 @@ let mergeTwoLists = function (l1, l2) {
     return newList.next;
 };
 
+/**
+ * 22 括号生成
+ * @param {number} n
+ * @return {string[]}
+ */
+let generateParenthesis = function (n) {
+    let generate = function (l, r, bracket, res, len) {
+        if (l === len && r === len) {
+            res.push(bracket);
+        } else {
+            if (l < len) {
+                generate(l + 1, r, bracket + '(', res, len);
+            }
+            if (l > r && r < len) {//如果不加上l>r这个条件,会把所有的情况列举出来(包括不能构成完成括号的情况)
+                generate(l, r + 1, bracket + ')', res, len);
+            }
+        }
+    };
+
+    let left = 0, right = 0;
+    let res = [];
+    generate(left, right, '', res, n);
+    return res;
+};
+
+// console.log(generateParenthesis(3))
+
 
 module.exports = {
     convert: convert,
@@ -576,5 +603,6 @@ module.exports = {
     fourSum: fourSum,
     removeNthFromEnd: removeNthFromEnd,
     isValid: isValid,
-    mergeTwoLists: mergeTwoLists
+    mergeTwoLists: mergeTwoLists,
+    generateParenthesis: generateParenthesis
 };
