@@ -635,7 +635,52 @@ let mergeKLists = function (lists) {
     return head.next ? head.next : [];//实在不知道如果不匹配返回什么了,就返回[]了
 };
 
-// console.log(JSON.stringify(mergeKLists([])))
+
+/**
+ * 24 题两两交换链表中的节点
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+let swapPairs = function (head) {
+    if(!head){
+        return [];
+    }
+    if(!head.next){
+        return head;
+    }
+    let res = new ListNode(0);
+    let temp = res;
+    let first = head;
+    let second = first.next;
+
+    while (first && second) {
+        first.next = second.next;
+        second.next = first;
+        temp.next = second;
+
+        temp = temp.next.next;
+        first = first.next;
+        if (first) {
+            second = first.next;
+        }
+    }
+    if (first) {
+        temp.next = first;
+    }
+    return res.next;
+};
+
+// console.log(JSON.stringify(swapPairs({
+//     "val": 1,
+//     "next": {"val": 2, "next": {"val": 3, "next": {"val": 4, "next": null}}}
+// })))
 
 
 module.exports = {
@@ -654,5 +699,6 @@ module.exports = {
     removeNthFromEnd: removeNthFromEnd,
     isValid: isValid,
     mergeTwoLists: mergeTwoLists,
-    generateParenthesis: generateParenthesis
+    generateParenthesis: generateParenthesis,
+    mergeKLists: mergeKLists
 };
