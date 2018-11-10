@@ -1,4 +1,15 @@
 /**
+ * 链表定义
+ * @param val
+ * @constructor
+ */
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
+
+/**
  * 0006题-z字形变换
  * @param {string} s
  * @param {number} numRows
@@ -463,10 +474,6 @@ let fourSum = function (nums, target) {
  * @return {ListNode}
  */
 let removeNthFromEnd = function (head, n) {
-    function ListNode(val) {
-        this.val = val;
-        this.next = null;
-    }
 
     let temp = new ListNode(0);
     temp.next = head;
@@ -534,10 +541,6 @@ let isValid = function (s) {
  * @return {ListNode}
  */
 let mergeTwoLists = function (l1, l2) {
-    function ListNode(val) {
-        this.val = val;
-        this.next = null;
-    }
 
     let newList = new ListNode(0);
     let temp = newList;
@@ -585,7 +588,54 @@ let generateParenthesis = function (n) {
     return res;
 };
 
-// console.log(generateParenthesis(3))
+/**
+ * 23题 合并n个链表
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+let mergeKLists = function (lists) {
+    let head = new ListNode(0);
+    let current = head;
+    while (lists.length > 0) {
+        if (lists.length === 1) {//如果只有一个
+            current.next = lists[0];
+            break;
+        }
+        let smallNumber;//存储最小的数
+        let index = 0; //最小的数是属于元素的下标
+        for (let i = 0; i < lists.length; i++) {
+            if (lists[i]) {
+                if (smallNumber === undefined) {//如果第一次,就赋值
+                    smallNumber = lists[i]['val'];
+                    index = i;
+                } else if (smallNumber > lists[i]['val']) {
+                    smallNumber = lists[i]['val'];
+                    index = i;
+                }
+            }
+        }
+        if (lists[index]) {
+            current.next = lists[index];
+            lists[index] = lists[index]['next'];
+            if (!lists[index]) {
+                lists.splice(index, 1);//将null值去掉
+            }
+            current = current.next;
+        } else {
+            lists.splice(index, 1)
+        }
+    }
+    return head.next ? head.next : [];//实在不知道如果不匹配返回什么了,就返回[]了
+};
+
+// console.log(JSON.stringify(mergeKLists([])))
 
 
 module.exports = {
