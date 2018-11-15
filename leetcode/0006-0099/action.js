@@ -649,10 +649,10 @@ let mergeKLists = function (lists) {
  * @return {ListNode}
  */
 let swapPairs = function (head) {
-    if(!head){
+    if (!head) {
         return [];
     }
-    if(!head.next){
+    if (!head.next) {
         return head;
     }
     let res = new ListNode(0);
@@ -677,10 +677,75 @@ let swapPairs = function (head) {
     return res.next;
 };
 
-// console.log(JSON.stringify(swapPairs({
-//     "val": 1,
-//     "next": {"val": 2, "next": {"val": 3, "next": {"val": 4, "next": null}}}
-// })))
+
+/**
+ * 25题 k个一组翻转链表
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+let reverseKGroup = function (head, k) {
+    if (!head) {
+        return [];
+    }
+    if (k === 1) {
+        return head;
+    }
+
+    if (head.next) {
+        return head;
+    }
+    // if (!head.next) {
+    //     return head;
+    // }
+
+    let index = 0;
+    let res = new ListNode(0);//新的list
+    let current = res;
+    let pointList = head; //指针
+    let tempListDesc = new ListNode(0);//以k分段的list变量
+
+    while (pointList) {
+        index++;//个数
+        let desc = tempListDesc.next;
+        tempListDesc.next = pointList; //每次新来的都放在tempListDesc的第1个位置处
+        pointList = pointList.next; //先移动指针,才能避免bug
+        tempListDesc.next.next = desc;
+
+        if (current.next) {
+            current = current.next;
+        }
+
+        if (index % k === 0) {
+            current.next = tempListDesc.next;
+            current = current.next;
+            tempListDesc = new ListNode(0);
+        }
+        if (!pointList && (index % k !== 0)) {
+            while (current.next) {
+                current = current.next;
+            }
+            let rest = tempListDesc.next;
+            while (rest) { //将剩余的不够k个的逆序的反转成原序列
+                let asc = current.next;
+                current.next = rest;
+                rest = rest.next;
+                current.next.next = asc;
+            }
+        }
+    }
+    return res.next;
+};
+
+
+// console.log(JSON.stringify(reverseKGroup(null, 2)))
 
 
 module.exports = {
@@ -700,5 +765,6 @@ module.exports = {
     isValid: isValid,
     mergeTwoLists: mergeTwoLists,
     generateParenthesis: generateParenthesis,
-    mergeKLists: mergeKLists
+    mergeKLists: mergeKLists,
+    swapPairs: swapPairs
 };
