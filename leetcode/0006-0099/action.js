@@ -807,5 +807,6 @@ module.exports = {
     mergeKLists: mergeKLists,
     swapPairs: swapPairs,
     reverseKGroup: reverseKGroup,
-    removeDuplicates: removeDuplicates
+    removeDuplicates: removeDuplicates,
+    removeElement: removeElement
 };
