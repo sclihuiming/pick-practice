@@ -744,8 +744,47 @@ let reverseKGroup = function (head, k) {
     return res.next;
 };
 
+/**
+ * 26. 删除排序数组中的重复项
+ * @param {number[]} nums
+ * @return {number}
+ */
+let removeDuplicates = function (nums) {
+    let len = nums.length;
+    let index = 0;
 
-// console.log(JSON.stringify(reverseKGroup(null, 2)))
+    for (let i = 0; i < len; i++) {
+        if (nums[i] !== nums[i + 1]) {
+            nums[index + 1] = nums[i + 1];
+            index++;
+        }
+    }
+    return index;
+};
+
+/**
+ * 27. 移除元素
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+let removeElement = function (nums, val) {
+    let len = nums.length;
+    let index = 0;
+
+    while (index < len) {
+        if (nums[index] === val) {
+            nums[index] = nums[len - 1];
+            len--;
+        } else {
+            index++;
+        }
+    }
+    return index;
+};
+
+
+// console.log(removeElement([3, 2, 2, 3], 3))
 
 
 module.exports = {
@@ -766,5 +805,7 @@ module.exports = {
     mergeTwoLists: mergeTwoLists,
     generateParenthesis: generateParenthesis,
     mergeKLists: mergeKLists,
-    swapPairs: swapPairs
+    swapPairs: swapPairs,
+    reverseKGroup: reverseKGroup,
+    removeDuplicates: removeDuplicates
 };
