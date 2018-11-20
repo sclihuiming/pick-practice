@@ -783,8 +783,39 @@ let removeElement = function (nums, val) {
     return index;
 };
 
+/**
+ * 28 实现strStr()
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+let strStr = function (haystack, needle) {
+    let length = haystack.length;
+    let needleLength = needle.length;
+    if (needleLength === 0) {
+        return 0
+    } else if (length < needleLength) {
+        return -1;
+    }
 
-// console.log(removeElement([3, 2, 2, 3], 3))
+    for (let i = 0; i <= length - needleLength; i++) {
+        let flag = true;
+        for (let j = 0; j < needleLength; j++) {
+            if (haystack.charAt(i + j) !== needle.charAt(j)) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            return i;
+        }
+    }
+
+    return -1;
+};
+
+
+// console.log(strStr("a", "a"))
 
 
 module.exports = {
