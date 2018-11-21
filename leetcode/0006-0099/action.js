@@ -860,9 +860,56 @@ let divide = function (dividend, divisor) {
     return num;
 };
 
+/**
+ * 30. 与所有单词相关联的字串
+ * @param {string} s
+ * @param {string[]} words
+ * @return {number[]}
+ */
+let findSubstring = function (s, words) {
+    if (!s || words.length === 0) {
+        return [];
+    }
+    let sLength = s.length;//字符串长度
+    let wordNums = words.length; //单词个数
+    let wordLength = words[0].length; //单词长度
+    let allWordLength = wordNums * wordLength; //单词的总长度
+    let wordInfo = {};
+    for (let i = 0; i < wordNums; i++) { //统计单词出现的次数
+        let word = words[i];
+        if (wordInfo[word]) {
+            wordInfo[word]++;
+        } else {
+            wordInfo[word] = 1;
+        }
+    }
+    let res = [];
+    let index = 0;
+    while (index + allWordLength <= sLength) {//每次将字符串向后移动一位,进行字符串的截取
+        let copyInfo = Object.assign({}, wordInfo);
+        let tempS = s.substr(index, allWordLength); //截取字符串
+        for (let i = 0; i < wordNums; i++) {
+            let word = tempS.substr(i * wordLength, wordLength);//在根据单词的个数截取单词
+            if (copyInfo[word]) {
+                copyInfo[word]--;
+                if (copyInfo[word] === 0) {
+                    delete copyInfo[word];
+                }
+            } else {
+                break;
+            }
+        }
+        if (Object.keys(copyInfo).length === 0) {
+            res.push(index);
+        }
+        index++;
+    }
+    return res;
+};
+
 
 // console.log(divide(-2147483648, -1));
-// console.log(divide(10, 3))
+// console.log(findSubstring("barfoofoobarthefoobarman", ["bar", "foo", "the"]))
 
 
 module.exports = {
@@ -887,5 +934,6 @@ module.exports = {
     reverseKGroup: reverseKGroup,
     removeDuplicates: removeDuplicates,
     removeElement: removeElement,
-    strStr: strStr
+    strStr: strStr,
+    divide: divide
 };
