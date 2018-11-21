@@ -1,3 +1,6 @@
+const MAX_NUM = Math.pow(2, 31) - 1;
+const MIN_NUM = Math.pow(-2, 31);
+
 /**
  * 链表定义
  * @param val
@@ -814,8 +817,52 @@ let strStr = function (haystack, needle) {
     return -1;
 };
 
+/**
+ * 29. 两数相除
+ * @param {number} dividend
+ * @param {number} divisor
+ * @return {number}
+ */
+let divide = function (dividend, divisor) {
+    let positive = true;
+    if (dividend === 0) {
+        return 0;
+    } else if ((dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0)) {
+        positive = false;
+    }
+    dividend = Math.abs(dividend);
+    divisor = Math.abs(divisor);
+    let num = 0;
 
-// console.log(strStr("a", "a"))
+    while (dividend >= divisor) {
+        let tmp = divisor;
+        let cur = 1;
+        while (dividend > 0 && tmp > 0 && dividend - tmp >= 0) {
+            dividend = dividend - tmp;
+            num += cur;
+
+            tmp = tmp << 1;
+            cur = cur << 1;
+        }
+    }
+
+    if (!positive) {
+        num = 0 - num;
+        if (num < Math.pow(-2, 31)) {
+            num = Math.pow(-2, 31)
+        }
+    } else {
+        if (num > Math.pow(2, 31) - 1) {
+            num = Math.pow(2, 31) - 1;
+        }
+    }
+
+    return num;
+};
+
+
+// console.log(divide(-2147483648, -1));
+// console.log(divide(10, 3))
 
 
 module.exports = {
@@ -839,5 +886,6 @@ module.exports = {
     swapPairs: swapPairs,
     reverseKGroup: reverseKGroup,
     removeDuplicates: removeDuplicates,
-    removeElement: removeElement
+    removeElement: removeElement,
+    strStr: strStr
 };
