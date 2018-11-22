@@ -907,9 +907,51 @@ let findSubstring = function (s, words) {
     return res;
 };
 
+/**
+ * 31. 下一个排列
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+let nextPermutation = function (nums) {
+    function sortNumber(a, b) {
+        return a - b
+    }
+
+    let length = nums.length;
+    let index = -1;
+    //找到不是倒序的点
+    for (let i = length - 2; i >= 0; i--) {
+        if (nums[i] < nums[i + 1]) {
+            index = i;
+            break;
+        }
+    }
+    if (index === -1) {
+        nums.reverse();
+        return;
+    }
+    let m = -1;
+    for (let i = length - 1; i > index; i--) {
+        //将第一个与相比较点较大的数进行交换
+        if (nums[i] > nums[index]) {
+            [nums[i], nums[index]] = [nums[index], nums[i]];
+            break;
+        }
+    }
+
+    //将index后面的数据进行反转
+    let n = index + 1;
+    let k = length - 1;
+    while (n < k) {
+        [nums[n], nums[k]] = [nums[k], nums[n]];
+        n++;
+        k--;
+    }
+};
+
 
 // console.log(divide(-2147483648, -1));
-// console.log(findSubstring("barfoofoobarthefoobarman", ["bar", "foo", "the"]))
+// console.log(nextPermutation([1, 3, 2]))
 
 
 module.exports = {
@@ -935,5 +977,6 @@ module.exports = {
     removeDuplicates: removeDuplicates,
     removeElement: removeElement,
     strStr: strStr,
-    divide: divide
+    divide: divide,
+    findSubstring: findSubstring
 };
