@@ -949,9 +949,44 @@ let nextPermutation = function (nums) {
     }
 };
 
+/**
+ * 32. 最长有效括号
+ * @param {string} s
+ * @return {number}
+ */
+let longestValidParentheses = function (s) {
+    let length = s.length;
+    if (length < 2) {
+        return 0;
+    }
+    let leftArr = [];//存储 "("的数组集合
+    let acceptNum = 0;
+    let start = 0;//记录有效字符的开始地方
+    let index = 0; //递增
+    while (index < length) {
+        let sy = s.charAt(index);
+        if (sy === '(') { //放入栈
+            leftArr.push(index)
+        } else { // ')'
+            if (leftArr.length > 0) {
+                let popNum = leftArr.pop();
+                if (leftArr.length > 0) {//弹出一个元素后,栈不为空
+                    acceptNum = Math.max(acceptNum, index - leftArr[leftArr.length - 1]);//index - 栈顶元素
+                } else {
+                    acceptNum = Math.max(acceptNum, index - start + 1);
+                }
+            } else { //如果栈为空
+                start = index + 1;
+            }
+        }
+        index++;
+    }
+    return acceptNum;
+};
+
 
 // console.log(divide(-2147483648, -1));
-// console.log(nextPermutation([1, 3, 2]))
+// console.log(longestValidParentheses('(()()(((()))'))
 
 
 module.exports = {
@@ -978,5 +1013,6 @@ module.exports = {
     removeElement: removeElement,
     strStr: strStr,
     divide: divide,
-    findSubstring: findSubstring
+    findSubstring: findSubstring,
+    nextPermutation: nextPermutation
 };
