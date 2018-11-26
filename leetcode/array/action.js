@@ -65,15 +65,15 @@ let searchRange = function (nums, target) {
         if (target === nums[middle]) {
             let tmpMid = middle;
 
-            while ((middle-1) >= low && target === nums[middle-1]) {
+            while ((middle - 1) >= low && target === nums[middle - 1]) {
                 middle--;
             }
-            while ((tmpMid+1) <= high && target === nums[tmpMid+1]) {
+            while ((tmpMid + 1) <= high && target === nums[tmpMid + 1]) {
                 tmpMid++;
             }
             return [middle, tmpMid];
         } else if (target < nums[middle]) {
-            high = middle-1;
+            high = middle - 1;
         } else {
             low = middle + 1;
         }
@@ -81,7 +81,38 @@ let searchRange = function (nums, target) {
     return [-1, -1];
 };
 
-// console.log(searchRange([2,2], 2));
+/**
+ * 35. 搜索插入位置
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+let searchInsert = function (nums, target) {
+    let low = 0;
+    let high = nums.length - 1;
+    if (high === -1) {
+        return 0;
+    }
+    while (low <= high) {
+        let middle = Math.floor((low + high) / 2);
+        if (target === nums[middle]) {
+            return middle;
+        } else if (target < nums[middle]) {
+            high = middle - 1;
+        } else {
+            low = middle + 1;
+        }
+    }
+    let middle = Math.floor((low + high) / 2);
+    if (target < nums[middle]) {
+        return middle;
+    } else if (target > nums[middle]) {
+        return ++middle;
+    }
+    return 0;
+};
+
+// console.log(searchInsert([1, 3, 5, 6], 8));
 
 module.exports = {
     search: search,
