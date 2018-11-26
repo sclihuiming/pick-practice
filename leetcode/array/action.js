@@ -29,10 +29,8 @@ let search = function (nums, target) {
         if (nums[middle] <= nums[high]) {//正常的
             if (target >= nums[middle] && target <= nums[high]) {
                 low = middle + 1;
-                continue;
             } else {//就是另一半不正常的
                 high = middle - 1;
-                continue;
             }
         }
 
@@ -49,8 +47,43 @@ let search = function (nums, target) {
     return -1;
 };
 
-// console.log(search([1], 1));
+/**
+ * 34. 在排序数组中查找元素的第一个和最后一个位置
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+let searchRange = function (nums, target) {
+    let low = 0;
+    let high = nums.length - 1;
+    if (high === -1) {
+        return [-1, -1];
+    }
+
+    while (low <= high) {
+        let middle = Math.floor((low + high) / 2);
+        if (target === nums[middle]) {
+            let tmpMid = middle;
+
+            while ((middle-1) >= low && target === nums[middle-1]) {
+                middle--;
+            }
+            while ((tmpMid+1) <= high && target === nums[tmpMid+1]) {
+                tmpMid++;
+            }
+            return [middle, tmpMid];
+        } else if (target < nums[middle]) {
+            high = middle-1;
+        } else {
+            low = middle + 1;
+        }
+    }
+    return [-1, -1];
+};
+
+// console.log(searchRange([2,2], 2));
 
 module.exports = {
-    search: search
+    search: search,
+    searchRange: searchRange
 };
