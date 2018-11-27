@@ -145,5 +145,6 @@ let combinationSum = function (candidates, target) {
 module.exports = {
     search: search,
     searchRange: searchRange,
-    searchInsert: searchInsert
+    searchInsert: searchInsert,
+    combinationSum: combinationSum
 };
