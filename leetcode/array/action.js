@@ -112,9 +112,38 @@ let searchInsert = function (nums, target) {
     return 0;
 };
 
-// console.log(searchInsert([1, 3, 5, 6], 8));
+/**
+ * 39. 组合总和
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+let combinationSum = function (candidates, target) {
+    function backtrade(candidates, start, target, item, res) {
+        if (target < 0) {
+            return;
+        }
+        if (target === 0) {
+            res.push(Object.assign([], item));
+            return
+        }
+        for (let i = start; i < candidates.length; i++) {
+            item.push(candidates[i]);
+            backtrade(candidates, i, target - candidates[i], item, res);
+            item.pop();
+        }
+    }
+
+    let item = [];
+    let res = [];
+    backtrade(candidates, 0, target, item, res);
+    return res;
+};
+
+// console.log(combinationSum([1, 3, 5, 6], 8));
 
 module.exports = {
     search: search,
-    searchRange: searchRange
+    searchRange: searchRange,
+    searchInsert: searchInsert
 };
