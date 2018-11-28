@@ -159,11 +159,11 @@ let combinationSum2 = function (candidates, target) {
             if (i > start && candidates[i] === candidates[i - 1]) {
                 continue;
             }
-            if(target>0){
+            if (target > 0) {
                 item.push(candidates[i]);
-                backtrade(candidates, i+1, target - candidates[i], item, res);
+                backtrade(candidates, i + 1, target - candidates[i], item, res);
                 item.pop();
-            }else{
+            } else {
                 return
             }
 
@@ -182,7 +182,32 @@ let combinationSum2 = function (candidates, target) {
     return res;
 };
 
-// console.log(combinationSum2([2, 5, 2, 1, 2], 5));
+/**
+ *41. 缺失的第一个正数
+ * @param {number[]} nums
+ * @return {number}
+ */
+let firstMissingPositive = function (nums) {
+    let length = nums.length;
+    if (length === 0) {
+        return 1;
+    }
+    let min = 1;
+    let lastEqualPos = -1;
+    for (let i = 0; i < length; i++) {
+        if (nums[i] === min) {
+            min++;
+            if (lastEqualPos === -1 && i === 0) {
+                lastEqualPos = i;
+            } else {
+                i = lastEqualPos;
+            }
+        }
+    }
+    return min;
+};
+
+// console.log(firstMissingPositive([0,1,2]));
 
 module.exports = {
     search: search,
