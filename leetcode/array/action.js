@@ -194,6 +194,7 @@ let firstMissingPositive = function (nums) {
     }
     let min = 1;
     let lastEqualPos = -1;
+    //每次min增长后i都从0重新开始循环
     for (let i = 0; i < length; i++) {
         if (nums[i] === min) {
             min++;
@@ -207,11 +208,35 @@ let firstMissingPositive = function (nums) {
     return min;
 };
 
-// console.log(firstMissingPositive([0,1,2]));
+/**
+ * 42. 接雨水
+ * @param {number[]} height
+ * @return {number}
+ */
+let trap = function (height) {
+    let length = height.length;
+    if (length < 3) {
+        return 0;
+    }
+
+    let l = 0, r = length - 1, level = 0, area = 0;
+    while (l < r) {
+        let lower = height[(height[l] < height[r]) ? l++ : r--];
+        level = Math.max(level, lower);
+        area += level - lower;
+    }
+
+    return area;
+};
+
+// console.log(trap([4,2,3]));
 
 module.exports = {
     search: search,
     searchRange: searchRange,
     searchInsert: searchInsert,
-    combinationSum: combinationSum
+    combinationSum: combinationSum,
+    combinationSum2: combinationSum2,
+    firstMissingPositive: firstMissingPositive,
+
 };
