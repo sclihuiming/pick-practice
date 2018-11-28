@@ -140,7 +140,49 @@ let combinationSum = function (candidates, target) {
     return res;
 };
 
-// console.log(combinationSum([1, 3, 5, 6], 8));
+/**
+ *40. 组合总和 II
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+let combinationSum2 = function (candidates, target) {
+    function backtrade(candidates, start, target, item, res) {
+        if (target < 0) {
+            return;
+        }
+        if (target === 0) {
+            res.push(Object.assign([], item));
+            return
+        }
+        for (let i = start; i < candidates.length; i++) {
+            if (i > start && candidates[i] === candidates[i - 1]) {
+                continue;
+            }
+            if(target>0){
+                item.push(candidates[i]);
+                backtrade(candidates, i+1, target - candidates[i], item, res);
+                item.pop();
+            }else{
+                return
+            }
+
+        }
+    }
+
+    function sortNumber(a, b) {
+        return a - b;
+    }
+
+    let item = [];
+    let res = [];
+    candidates.sort(sortNumber);
+    // console.log(candidates)
+    backtrade(candidates, 0, target, item, res);
+    return res;
+};
+
+// console.log(combinationSum2([2, 5, 2, 1, 2], 5));
 
 module.exports = {
     search: search,
