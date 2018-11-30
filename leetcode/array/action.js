@@ -256,7 +256,35 @@ let jump = function (nums) {
     return count;
 };
 
-// console.log(jump([0]));
+/**
+ * 48. 旋转图像
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+let rotate = function(matrix) {
+    let len = matrix.length;
+    for (let i = 0; i < len / 2; i++) {//控制交换次数
+        let start = i;
+        let end = len - i - 1;
+        for (let j = 0; j < end - start; j++) { // 交换
+            let temp = matrix[start][start + j];
+            //[0][0] => [2][0]
+            matrix[start][start + j] = matrix[end - j][start];
+            //[2][0] => [0][2]
+            matrix[end - j][start] = matrix[end][end - j];
+            //[2][0] => [0][2]
+            matrix[end][end - j] = matrix[start + j][end];
+            // [0][2] = [0][0]
+            matrix[start + j][end] = temp;
+        }
+    }
+};
+
+// console.log(rotate([
+//     [1,2,3],
+//     [4,5,6],
+//     [7,8,9]
+// ]));
 
 module.exports = {
     search: search,
@@ -266,5 +294,6 @@ module.exports = {
     combinationSum2: combinationSum2,
     firstMissingPositive: firstMissingPositive,
     trap: trap,
+    jump:jump
 
 };
