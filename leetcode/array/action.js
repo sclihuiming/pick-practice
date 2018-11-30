@@ -229,7 +229,34 @@ let trap = function (height) {
     return area;
 };
 
-// console.log(trap([4,2,3]));
+/**
+ * 45. 跳跃游戏 II
+ * @param {number[]} nums
+ * @return {number}
+ */
+let jump = function (nums) {
+    if (nums.length <= 1) {
+        return 0
+    }
+    let index = 0, count = 0;
+    while (index < nums.length) {
+        if ((index + nums[index]) >= (nums.length - 1)) {
+            count++;
+            break;
+        }
+        let max = index;
+        for (let j = index + 1; j <= index + nums[index]; j++) {
+            if ((nums[max] + max) < (nums[j] + j)) {
+                max = j;
+            }
+        }
+        index = max;
+        count++;
+    }
+    return count;
+};
+
+// console.log(jump([0]));
 
 module.exports = {
     search: search,
@@ -238,5 +265,6 @@ module.exports = {
     combinationSum: combinationSum,
     combinationSum2: combinationSum2,
     firstMissingPositive: firstMissingPositive,
+    trap: trap,
 
 };
