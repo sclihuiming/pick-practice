@@ -302,8 +302,36 @@ let maxSubArray = function (nums) {
     return res;
 };
 
+/**
+ * 54. 螺旋矩阵
+ * 总循环次数是m * n次,使用di和dj来控制方向,促使华di=0,dj=1
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+let spiralOrder = function (matrix) {
+    let r = [], i = 0, j = 0, di = 0, dj = 1;
+    let length = matrix.length;
+    if (length > 0) {
+        let rowLen = matrix[0].length;
+        for (let m = 0; m < length * rowLen; m++) {
+            r.push(matrix[i][j]);
+            matrix[i][j] = 'go';
+            if (matrix[(i + di) % length][(j + dj) % rowLen] === 'go' || (j + dj) < 0) {
+                [di, dj] = [dj, -di];
+            }
+            i += di;
+            j += dj;
+        }
+    }
+    return r;
+};
 
-// console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+
+// console.log(spiralOrder([
+//     [1, 2, 3, 4],
+//     [5, 6, 7, 8],
+//     [9, 10, 11, 12]
+// ]));
 
 module.exports = {
     search: search,
@@ -314,6 +342,7 @@ module.exports = {
     firstMissingPositive: firstMissingPositive,
     trap: trap,
     jump: jump,
-    rotate: rotate
-
+    rotate: rotate,
+    maxSubArray: maxSubArray,
+    spiralOrder: spiralOrder
 };
