@@ -356,8 +356,51 @@ let canJump = function (nums) {
     return flag;
 };
 
+function Interval(start, end) {
+    this.start = start;
+    this.end = end;
+}
 
-// console.log(canJump([0]));
+/**
+ * 56. 合并区间
+ * Definition for an interval.
+ * function Interval(start, end) {
+ *     this.start = start;
+ *     this.end = end;
+ * }
+ */
+/**
+ * @param {Interval[]} intervals
+ * @return {Interval[]}
+ */
+let merge = function (intervals) {
+    let res = [];
+    //先进行排序,防止后有区间开始的节点比前面小的情况,将开始节点最小的放在最前面
+    intervals.sort(function (a, b) {
+        return a.start - b.start
+    });
+    while (intervals.length > 0) {
+        let temp = intervals[0];
+        intervals.splice(0, 1);
+        for (let i = 0; i < intervals.length; i++) {
+            //判断目标节点的end是不是大于对比节点的开始节点并且开始节点要<=目标的end节点
+            if (temp.end >= intervals[i]['start'] && intervals[i]['end'] >= temp.start) {
+                temp["start"] = Math.min(temp["start"], intervals[i]['start']);
+                temp["end"] = Math.max(temp["end"], intervals[i]['end']);
+                intervals.splice(i, 1);
+                i--;
+            }
+        }
+        res.push(temp);
+    }
+    return res;
+};
+
+
+// console.log(merge([{start: 1, end: 4},
+//     {start: 0, end: 0},
+//     {start: 8, end: 10},
+//     {start: 15, end: 18}]));
 
 module.exports = {
     search: search,
