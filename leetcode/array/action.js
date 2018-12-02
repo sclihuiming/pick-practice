@@ -326,12 +326,38 @@ let spiralOrder = function (matrix) {
     return r;
 };
 
+/**
+ * 55. 跳跃游戏
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+let canJump = function (nums) {
+    if (nums.length <= 0) {
+        return false;
+    }
+    let index = 0, flag = false;
+    while (index < nums.length) {
+        if ((index + nums[index]) >= (nums.length - 1)) {
+            flag = true;
+            break;
+        }
+        let max = index;
+        for (let j = index + 1; j <= index + nums[index]; j++) {
+            if ((nums[max] + max) < (nums[j] + j)) {
+                max = j;
+            }
+        }
+        if (index === max) {
+            flag = false;
+            break;
+        }
+        index = max;
+    }
+    return flag;
+};
 
-// console.log(spiralOrder([
-//     [1, 2, 3, 4],
-//     [5, 6, 7, 8],
-//     [9, 10, 11, 12]
-// ]));
+
+// console.log(canJump([0]));
 
 module.exports = {
     search: search,
