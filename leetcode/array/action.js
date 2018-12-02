@@ -261,18 +261,19 @@ let jump = function (nums) {
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-let rotate = function(matrix) {
+let rotate = function (matrix) {
     let len = matrix.length;
     for (let i = 0; i < len / 2; i++) {//控制交换次数
         let start = i;
         let end = len - i - 1;
         for (let j = 0; j < end - start; j++) { // 交换
+            // console.log(start, start + j, end - j,)
             let temp = matrix[start][start + j];
             //[0][0] => [2][0]
             matrix[start][start + j] = matrix[end - j][start];
-            //[2][0] => [0][2]
+            //[2][0] => [2][2]
             matrix[end - j][start] = matrix[end][end - j];
-            //[2][0] => [0][2]
+            //[2][2] => [0][2]
             matrix[end][end - j] = matrix[start + j][end];
             // [0][2] = [0][0]
             matrix[start + j][end] = temp;
@@ -280,11 +281,29 @@ let rotate = function(matrix) {
     }
 };
 
-// console.log(rotate([
-//     [1,2,3],
-//     [4,5,6],
-//     [7,8,9]
-// ]));
+/**
+ * 53. 最大子序和
+ * @param {number[]} nums
+ * @return {number}
+ */
+let maxSubArray = function (nums) {
+    if (nums.length === 0) {
+        return 0;
+    }
+    let res = nums[0];
+    let sum = 0;
+    for (let num of nums) {
+        if (sum > 0)
+            sum += num;
+        else
+            sum = num;
+        res = Math.max(res, sum);
+    }
+    return res;
+};
+
+
+// console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 
 module.exports = {
     search: search,
@@ -294,6 +313,7 @@ module.exports = {
     combinationSum2: combinationSum2,
     firstMissingPositive: firstMissingPositive,
     trap: trap,
-    jump:jump
+    jump: jump,
+    rotate: rotate
 
 };
