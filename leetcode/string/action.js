@@ -81,29 +81,27 @@ let isMatch = function (s, p) {
     //match记录与"*"匹配的i的位置(与starj不同的是，每次回溯，match自增)
     let i = 0, j = 0, starj = -1, match = 0;
 
-    while(i < s.length){
+    while (i < s.length) {
         //字符相等或者p.charAt(j) == '?'
-        if(j < p.length && (s.charAt(i) === p.charAt(j) || p.charAt(j) === '?')){
+        if (j < p.length && (s.charAt(i) === p.charAt(j) || p.charAt(j) === '?')) {
             i++;
             j++;
-            //遇到'*', 记录'*'的位置，并记录starj和match
-        }else if(j < p.length && p.charAt(j) === '*'){
+        } else if (j < p.length && p.charAt(j) === '*') { //遇到'*', 记录'*'的位置，并记录starj和match
             starj = j;
             j++;
             match = i;
+        } else if (starj !== -1) {
             //不是上述两种情况，无法匹配，因此回溯
             //注意，若出现第二个'*'， 会对之前的覆盖，因为已经不需要用之前的"*"进行回溯了
-        }else if(starj !== -1){
             j = starj + 1;
             match++;
             i = match;
-            //其他情况， 直接返回false
-        }else{
+        } else {//其他情况， 直接返回false
             return false;
         }
     }
     //清除'*'
-    while(j < p.length && p.charAt(j) === '*') j++;
+    while (j < p.length && p.charAt(j) === '*') j++;
     //若p清空，说明匹配
     return j === p.length;
 };
