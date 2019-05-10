@@ -1,6 +1,7 @@
 
 /**
  *二叉树顺序遍历，使用迭代
+ *中序遍历 （左-根-右） 
  * @param {*} root 树
  */
 let inorderTraversal = function (root) {
