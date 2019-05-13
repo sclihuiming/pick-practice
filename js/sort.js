@@ -54,4 +54,53 @@ let selectionSort = function (sourceArray) {
 }
 // console.log(selectionSort([12,3,4,67,923,8,7,4,0,1]))
 
+/**
+ * 插入排序，
+ * @param {*} sourceArray 
+ */
+let insertSort = function (sourceArray) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not a array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  let arr = sourceArray.slice();
+  for (let i = 0; i < arr.length; i++) {
+    let tmp = arr[i];
+    let j = i;
+    while (j > 0 && tmp < arr[j - 1]) {
+      arr[j] = arr[j - 1];
+      j--;
+    }
+    if (i !== j) {
+      arr[j] = tmp;
+    }
+  }
+  return arr;
+}
+
+/**
+ * 希尔排序
+ * @param {*} sourceArray 
+ */
+let shellSort = function(sourceArray){
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not a array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  let arr = sourceArray.slice();
+  
+
+
+  return arr;
+}
+
+
+
+
+
+
 
