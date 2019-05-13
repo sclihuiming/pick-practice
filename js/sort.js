@@ -84,7 +84,7 @@ let insertSort = function (sourceArray) {
  * 希尔排序
  * @param {*} sourceArray 
  */
-let shellSort = function(sourceArray){
+let shellSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
     return new Error('not a array')
   }
@@ -92,13 +92,27 @@ let shellSort = function(sourceArray){
     return sourceArray;
   }
   let arr = sourceArray.slice();
-  
+  let length = arr.length;
 
-
+  //根据经验公式 increment = increment/3 + 1 而来
+  for (let step = Math.floor(length / 3) + 1; step > 0; step = Math.floor(step / 3)) {
+    console.log(step)
+    for (let i = step; i < length; i++) {
+      let tmp = arr[i];
+      let j = i;
+      while ((j - step) >= 0 && tmp < arr[j - step]) {
+        arr[j] = arr[j - step];
+        j = j - step;
+      }
+      if (i !== j) {
+        arr[j] = tmp;
+      }
+    }
+  }
   return arr;
 }
 
-
+console.log(shellSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
 
 
 
