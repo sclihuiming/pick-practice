@@ -112,9 +112,54 @@ let shellSort = function (sourceArray) {
   return arr;
 }
 
-console.log(shellSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
+// console.log(shellSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
 
+/**
+ * 归并排序
+ * @param {*} sourceArray 
+ */
+let mergeSort = function (sourceArray) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not a array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  //排序
+  function sort(array) {
+    if (array.length < 2) {
+      return array;
+    }
+    let middle = Math.floor(array.length / 2);
+    let left = array.slice(0, middle);
+    let right = array.slice(middle);
+    return merge(sort(left), sort(right));
+  }
+  //合并
+  function merge(leftArr, rightArr) {
+    let result = [];
+    let index = 0;
+    let leftIndex = 0;
+    let rightIndex = 0;
+    //归并
+    while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+      if (leftArr[leftIndex] < rightArr[rightIndex]) {
+        result[index++] = leftArr[leftIndex++];
+      } else {
+        result[index++] = rightArr[rightIndex++];
+      }
+    }
+    //处理剩下的
+    while (leftIndex < leftArr.length) {
+      result[index++] = leftArr[leftIndex++];
+    }
+    while (rightIndex < rightArr.length) {
+      result[index++] = rightArr[rightIndex++];
+    }
+    return result;
+  }
 
-
+  return sort(sourceArray);
+}
 
 
