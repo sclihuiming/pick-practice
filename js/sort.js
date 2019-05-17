@@ -5,7 +5,7 @@
  */
 let bubbleSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
-    return new Error('not a array')
+    return new Error('not array')
   }
   if (sourceArray.length < 2) {
     return sourceArray;
@@ -32,7 +32,7 @@ let bubbleSort = function (sourceArray) {
  */
 let selectionSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
-    return new Error('not a array')
+    return new Error('not array')
   }
   if (sourceArray.length < 2) {
     return sourceArray;
@@ -60,7 +60,7 @@ let selectionSort = function (sourceArray) {
  */
 let insertSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
-    return new Error('not a array')
+    return new Error('not array')
   }
   if (sourceArray.length < 2) {
     return sourceArray;
@@ -86,7 +86,7 @@ let insertSort = function (sourceArray) {
  */
 let shellSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
-    return new Error('not a array')
+    return new Error('not array')
   }
   if (sourceArray.length < 2) {
     return sourceArray;
@@ -120,7 +120,7 @@ let shellSort = function (sourceArray) {
  */
 let mergeSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
-    return new Error('not a array')
+    return new Error('not array')
   }
   if (sourceArray.length < 2) {
     return sourceArray;
@@ -168,7 +168,7 @@ let mergeSort = function (sourceArray) {
  */
 let quickSort = function (sourceArray) {
   if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
-    return new Error('not a array')
+    return new Error('not array')
   }
   if (sourceArray.length < 2) {
     return sourceArray;
@@ -196,10 +196,110 @@ let quickSort = function (sourceArray) {
     [array[left], array[index - 1]] = [array[index - 1], array[left]];
     return index - 1;
   }
-  return sort(sourceArray,0 ,sourceArray.length);
+  return sort(sourceArray, 0, sourceArray.length);
 }
 
+/**
+ * 最大堆排序 -正序
+ * @param {*} sourceArray 
+ */
+let heapSort = function (sourceArray) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  let array = sourceArray.slice();
+  let len = array.length;
+  //先建立最大堆
+  for (let i = Math.floor(len / 2); i >= 0; i--) {
+    heapify(array, i, len);
+  }
+  // for (let i = len - 1; i > 0; i--) {
+  //   [array[0], array[i]] = [array[i], array[0]];
+  //   len--;
+  //   heapify(array, 0, len);
+  // }
 
+  for (let i = 0; i < len; i++) {
+    heapify(array, 0, len - i);
+    [array[0], array[len - 1 - i]] = [array[len - 1 - i], array[0]];
+  }
+  return array;
+  /**
+   * 建立最大堆
+   * @param {*} array 数组当成堆（完全二叉树）
+   * @param {*} nodeIndex 当前节点位置
+   * @param {*} size 节点总数
+   */
+  function heapify(array, nodeIndex, size) {
+    if (nodeIndex < size) {
+      let left = 2 * nodeIndex + 1; //完全二叉树特性
+      let right = 2 * nodeIndex + 2;
+      let maxIndex = nodeIndex; //默认父节点为最大值
 
+      if (left < size && array[left] > array[maxIndex]) {
+        maxIndex = left;
+      }
+      if (right < size && array[right] > array[maxIndex]) {
+        maxIndex = right;
+      }
+      if (maxIndex !== nodeIndex) {
+        [array[maxIndex], array[nodeIndex]] = [array[nodeIndex], array[maxIndex]];
+        heapify(array, maxIndex, size);
+      }
+    }
+  }
+}
+
+/**
+ * 最小堆排序 -倒序
+ * @param {*} sourceArray 
+ */
+let heapSort2 = function (sourceArray) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  let array = sourceArray.slice();
+  let len = array.length;
+  for (let i = Math.floor(len / 2); i >= 0; i--) {
+    heapify(array, i, len);
+  }
+  for(let i=0;i<len;i++){
+    heapify(array, 0, len-i);
+    [array[0], array[len - 1 - i]] = [array[len - 1 - i], array[0]];
+  }
+
+  return array;
+  /**
+   * 构造一个最小堆
+   * @param {*} array 源
+   * @param {*} nodeIndex 当前节点序列
+   * @param {*} size 总节点数
+   */
+  function heapify(array, nodeIndex, size) {
+    if (nodeIndex < size) {
+      let left = 2 * nodeIndex + 1;
+      let right = 2 * nodeIndex + 2;
+      let minIndex = nodeIndex;//默认父节点为最小值的序列
+      if (left < size && array[left] < array[minIndex]) {
+        minIndex = left;
+      }
+      if (right < size && array[right] < array[minIndex]) {
+        minIndex = right;
+      }
+      if (nodeIndex !== minIndex) {
+        [array[nodeIndex], array[minIndex]] = [array[minIndex], array[nodeIndex]];
+        heapify(array, minIndex, size);
+      }
+    }
+  }
+}
+
+//  console.log(heapSort2([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
 
 
