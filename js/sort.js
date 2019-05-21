@@ -269,8 +269,8 @@ let heapSort2 = function (sourceArray) {
   for (let i = Math.floor(len / 2); i >= 0; i--) {
     heapify(array, i, len);
   }
-  for(let i=0;i<len;i++){
-    heapify(array, 0, len-i);
+  for (let i = 0; i < len; i++) {
+    heapify(array, 0, len - i);
     [array[0], array[len - 1 - i]] = [array[len - 1 - i], array[0]];
   }
 
@@ -302,4 +302,32 @@ let heapSort2 = function (sourceArray) {
 
 //  console.log(heapSort2([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
 
+/**
+ * 计数排序
+ * @param {*} sourceArray 
+ */
+let CountingSort = function (sourceArray) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
 
+  let arr = sourceArray.slice();
+  let bucket = [];
+  for (let val of arr) {
+    bucket[val] = (bucket[val] || 0) + 1;
+  }
+  let index = 0;
+  for (let i = 0; i < bucket.length; i++) {
+    while (bucket[i] > 0) {
+      arr[index++] = i;
+      bucket[i]--;
+    }
+  }
+  return arr;
+}
+
+
+// console.log(CountingSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
