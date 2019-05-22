@@ -365,8 +365,8 @@ let BucketSort = function (sourceArray, bucketSize = 5) {
   // let arrIndex = 0;
   arr = [];
   //对每个桶排序
-  for(let bucket of buckets){
-    if(bucket.length>0){
+  for (let bucket of buckets) {
+    if (bucket.length > 0) {
       bucket = insertSort(bucket);
       arr = arr.concat(bucket);
     }
@@ -375,8 +375,49 @@ let BucketSort = function (sourceArray, bucketSize = 5) {
 }
 // console.log(BucketSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
 
+/**
+ * 基数排序
+ * @param {*} sourceArray 
+ */
+let RadixSort = function (sourceArray) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  let arr = sourceArray.slice();
+  //取最大值
+  let maxValue = arr[0];
+  for (let val of arr) {
+    if (val > maxValue) {
+      maxValue = val;
+    }
+  }
+  //取最大值的长度
+  let maxDigit = maxValue.toString().length;
+  //进行基数排序
+  let mod = 10;
+  let dev = 1;
+  for (let i = 0; i < maxDigit; i++ , mod *= 10, dev *= 10) {
+    let counter = [];
+    for (let j = 0; j < 20; j++) {
+      counter[j] = [];
+    }
+    for (let j = 0; j < arr.length; j++) {
+      let index = Math.floor((arr[j] % mod) / dev) + 10;
+      counter[index].push(arr[j]);
+    }
+    arr = [];
+    for (let bucket of counter) {
+      if (bucket.length > 0) {
+        arr = arr.concat(bucket);
+      }
+    }
+  }
+  return arr;
+}
 
-
-
+console.log(RadixSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83,333333, 24]))
 
 
