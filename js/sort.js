@@ -328,6 +328,55 @@ let CountingSort = function (sourceArray) {
   }
   return arr;
 }
-
-
 // console.log(CountingSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
+
+/**
+ * 桶排序
+ * @param {*} sourceArray 
+ */
+let BucketSort = function (sourceArray, bucketSize = 5) {
+  if (Object.prototype.toString.call(sourceArray).slice(8, -1) !== 'Array') {
+    return new Error('not array')
+  }
+  if (sourceArray.length < 2) {
+    return sourceArray;
+  }
+  let arr = sourceArray.slice();
+  let maxValue = arr[0];
+  let minValue = arr[0];
+  for (let val of arr) {
+    if (val < minValue) {
+      minValue = val;
+    }
+    if (val > maxValue) {
+      maxValue = val;
+    }
+  }
+  let bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1;
+  let buckets = [];
+  //初始化桶
+  for (let i = 0; i < bucketCount; i++) {
+    buckets[i] = [];
+  }
+  for (let i = 0; i < arr.length; i++) {
+    let index = Math.floor((arr[i] - minValue) / bucketSize);
+    buckets[index].push(arr[i]);
+  }
+  // let arrIndex = 0;
+  arr = [];
+  //对每个桶排序
+  for(let bucket of buckets){
+    if(bucket.length>0){
+      bucket = insertSort(bucket);
+      arr = arr.concat(bucket);
+    }
+  }
+  return arr;
+}
+// console.log(BucketSort([12, 3, 4, 67, 923, 8, 7, 4, 0, 1, 83, 24]))
+
+
+
+
+
+
