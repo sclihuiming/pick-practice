@@ -36,3 +36,16 @@ int len = removeDuplicates(nums);
 for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
+
+```golang
+func removeDuplicates(nums []int) int {
+    index, fast := 0, 1
+    for ;fast<len(nums);fast++{
+        if nums[index] != nums[fast]{
+            index++
+            nums[index] = nums[fast]
+        }
+    }
+    return index + 1
+}
+```
