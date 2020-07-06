@@ -1,11 +1,15 @@
 
 # CNodejs每日新闻(2020-07-06)
 
-- 介绍Knex操作数据库，还不错的教程 The Complete Tutorial on the Top 5 Ways to Query Your Relational Database in JavaScript - Part 2
+- [ ] 介绍Knex操作数据库，还不错的教程 The Complete Tutorial on the Top 5 Ways to Query Your Relational Database in JavaScript - Part 2
 - ngrok是实现内网穿透软件，如何和做一个内外穿透的vscode扩展呢？ https://dzone.com/articles/i-built-a-vscode-extension-ngrok-for-vscode
 - 如何为团队定制自己的 Node.js 框架？（基于 EggJS） https://zhuanlan.zhihu.com/p/154643011
 - 尝试为nodejs贡献代码 https://zhuanlan.zhihu.com/p/155923260
 - 很实在的教程，适合入门，从博客开始是很多人的入门示例 https://juejin.im/post/5eb3e1b4e51d45244e7c2d09
+
+# 21312
+
+
 
 # CNodejs每日新闻(2020-07-02)
 
