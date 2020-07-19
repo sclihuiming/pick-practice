@@ -18,6 +18,56 @@ smalls的总字符数不会超过 100000。
 链接：https://leetcode-cn.com/problems/multi-search-lcci
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
+```golang
+type Trie struct {
+    value int // 存取当前单词的数组下标
+    nodeChar string
+    childNodes []*Trie
+}
 
+func multiSearch(big string, smalls []string) [][]int {
+    // 初始化前缀树
+    root := &Trie{
+        nodeChar: "root",
+        value: -1,
+        childNodes: make([]*Trie, 26),
+    }
+    // 构造前缀树
+    for index, word := range smalls{
+        next := root
+        for _, charCode := range word{
+            sequences := charCode - 97
+            if next.childNodes[sequences] == nil{
+                next.childNodes[sequences] = &Trie{
+                    nodeChar: string(charCode),
+                    value: -1,
+                    childNodes: make([]*Trie, 26),
+                }
+            }
+            next = next.childNodes[sequences]
+        }
+        next.value = index
+    }
 
+    strSize := len(big)
+    res := make([][]int, len(smalls))
+    // 遍历字符串 去 前缀树中 搜寻存在的路径
+    for index := 0; index < strSize; index++{
+        str := big[index:]
+        next := root
+        for _, charCode := range str{
+            sequences := charCode - 97
+            if next.childNodes[sequences] == nil{
+                break
+            } else {
+                next = next.childNodes[sequences]
+            }
+            if next.value > -1{
+                res[next.value] = append(res[next.value], index)
+            }
+        }
+    }
+    return res
+}
+```
 
