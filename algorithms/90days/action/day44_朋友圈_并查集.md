@@ -30,4 +30,52 @@ N 在[1,200]的范围内。
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 
+```golang
+func findCircleNum(M [][]int) int {
+    n := len(M)
+    parent := make([]int, n)
+    size := make([]int, n)
+    count := n
+
+    for index := 0; index < n; index++{
+        parent[index] = index
+        size[index] = 1
+    }
+
+    var find func(x int) int
+    find = func(x int) int{
+        for parent[x] != x{
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        }
+        return x
+    }
+    var union func(p, q int)
+    union = func(p, q int){
+        rootP := find(p)
+        rootQ := find(q)
+        if rootQ == rootP {
+            return
+        }
+        if size[rootP] > size[rootQ]{
+            parent[rootQ] = rootP
+            size[rootQ] += size[rootP]
+        } else {
+            parent[rootP] = rootQ
+            size[rootP] += size[rootQ]
+        }
+        count--
+    }
+
+    for i := 0; i < n; i++{
+        for j := 0; j < n; j++{
+            if M[i][j] == 1 && i != j{
+                union(i, j)
+            }
+        }
+    }
+
+    return count
+}
+```
 
