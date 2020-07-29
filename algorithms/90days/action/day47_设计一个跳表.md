@@ -91,6 +91,7 @@ func Constructor() Skiplist {
 
 func (this *Skiplist) Search(target int) bool {
     x := this.header
+    // 从最上层开始查找,最上层的元素最少
     for index := this.level - 1; index >= 0; index--{
         for x.next[index] != nil && x.next[index].Value < target{
             x = x.next[index]
