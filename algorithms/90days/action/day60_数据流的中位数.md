@@ -27,6 +27,98 @@ findMedian() -> 2
 链接：https://leetcode-cn.com/problems/find-median-from-data-stream
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
+```golang
+type MedianFinder struct {
+    minHeap *IntHeap
+    maxHeap *MaxIntHeap
+}
 
+
+/** initialize your data structure here. */
+func Constructor() MedianFinder {
+    return MedianFinder{
+        minHeap: &IntHeap{}, 
+        maxHeap: &MaxIntHeap{},
+    }
+}
+
+
+func (this *MedianFinder) AddNum(num int)  {
+    heap.Push(this.minHeap, num)
+    heap.Push(this.maxHeap, heap.Pop(this.minHeap))
+    if len(*this.minHeap) < len(*this.maxHeap) {
+		heap.Push(this.minHeap, heap.Pop(this.maxHeap))
+	}
+}
+
+
+func (this *MedianFinder) FindMedian() float64 {
+    if len(*this.minHeap) > len(*this.maxHeap) {
+		return float64((*this.minHeap)[0])
+	} else {
+		return float64((*this.minHeap)[0]+(*this.maxHeap)[0]) / 2
+	}
+}
+
+type IntHeap []int
+
+func(h IntHeap)Len() int{
+    return len(h)
+}
+
+func (h IntHeap) Less(i, j int) bool{
+    return h[i] < h[j]
+}
+
+func (h IntHeap) Swap(i , j int){
+    h[i], h[j] = h[j], h[i]
+}
+
+func (h *IntHeap)Push(x interface{}){
+    *h = append(*h, x.(int))
+} 
+
+func (h *IntHeap)Pop()interface{}{
+    old := *h
+    n := len(old)
+    x := old[n-1]
+    *h = old[:n-1]
+    return x
+}
+
+type MaxIntHeap []int
+
+func(h MaxIntHeap)Len() int{
+    return len(h)
+}
+
+func (h MaxIntHeap) Less(i, j int) bool{
+    return h[i] > h[j]
+}
+
+func (h MaxIntHeap) Swap(i, j int){
+    h[i], h[j] = h[j], h[i]
+}
+
+func (h *MaxIntHeap)Push(x interface{}){
+    *h = append(*h, x.(int))
+} 
+
+func (h *MaxIntHeap)Pop()interface{}{
+    old := *h
+    n := len(old)
+    x := old[n-1]
+    *h = old[:n-1]
+    return x
+}
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.AddNum(num);
+ * param_2 := obj.FindMedian();
+ */
+
+
+```
 
 
