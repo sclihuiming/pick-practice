@@ -22,7 +22,50 @@ k = 8,
 链接：https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
+```golang
+func kthSmallest(matrix [][]int, k int) int {
+    size := len(matrix)
+    lo := &IntHeap{}
+    heap.Init(lo)
+    for i := 0; i < size; i++{
+        for j := 0; j < size; j++{
+            heap.Push(lo, matrix[i][j])
+        }
+    }
 
+    for i := 1; i < k; i++{
+        heap.Pop(lo)
+    }
+    x := heap.Pop(lo)
+    return x.(int)
+}
+
+type IntHeap []int
+
+func (h IntHeap) Len() int {
+    return len(h)
+}
+
+func (h IntHeap) Less(i, j int) bool{
+    return h[i] < h[j]
+}
+
+func (h IntHeap) Swap(i, j int){
+    h[i], h[j] = h[j], h[i]
+}
+
+func (h *IntHeap) Push(i interface{}){
+    *h = append(*h, i.(int))
+}
+
+func (h *IntHeap) Pop()interface{}{
+    old := *h
+    n := len(old)
+    x := old[n-1]
+    *h = old[:n-1]
+    return x
+}
+```
 
 
 
