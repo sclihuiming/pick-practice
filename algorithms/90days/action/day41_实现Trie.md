@@ -39,7 +39,7 @@ func Constructor() Trie {
 
 
 /** Inserts a word into the trie. */
-func (this *Trie) Insert(word string)  {
+func (this *Trie) Insert(word sting)  {
     root := this
     size := len(word)
     for index, charCode := range word{

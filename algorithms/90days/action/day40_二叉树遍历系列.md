@@ -61,7 +61,9 @@ func preorderTraversal(root *TreeNode) []int {
     return result
 }
 ```
+
 94. 二叉树的中序遍历(迭代和递归)
+
 ```golang
 //递归
 func inorderTraversal(root *TreeNode) []int {
@@ -191,8 +193,26 @@ func levelOrder(root *TreeNode) [][]int {
 
 // 递归
 
+func levelOrder(root *TreeNode) [][]int {
+    result := [][]int{}
+    if root == nil{
+        return result
+    }
 
+    var dfs func(node *TreeNode, level int)
+    dfs = func(node *TreeNode, level int){
+        if node == nil{
+            return
+        }
+        if len(result) == level{
+            result = append(result, []int{})
+        }
+        result[level] = append(result[level], node.Val)
+        dfs(node.Left, level + 1)
+        dfs(node.Right, level + 1)
+    }
+    dfs(root, 0)
+    return result
+}
 
 ```
-
-
