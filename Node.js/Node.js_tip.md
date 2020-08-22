@@ -1,4 +1,3 @@
-
 # Node.js
 
 ## 内存调整
@@ -13,4 +12,5 @@
 --initial_old_space_size 调整老生代空间的初始值
 --max-old-space-size 调整老生代空间的最大值
 ```
-其中比较常用的是 --max_new_space_size 和 --max-old-space-size。
+
+其中比较常用的是 --max_new_space_size 和 --max-old-space-size
