@@ -49,3 +49,55 @@
 来源：力扣（LeetCode）
 链接：<https://leetcode-cn.com/problems/unique-paths-iii>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```golang
+
+var dx, dy []int = []int{1, 0, 0, -1}, []int{0, 1, -1,0}
+var m, n int = 0, 0
+func uniquePathsIII(grid [][]int) int {
+    if len(grid) == 0 || len(grid[0]) == 0{
+        return 0
+    }
+    m, n = len(grid), len(grid[0])
+
+    startX, startY := 0, 0
+    allowNum := 0
+    for i := 0; i < m; i++{
+        for j := 0; j < n; j++{
+            if grid[i][j] == 0{
+                allowNum++
+            }
+            if grid[i][j] == 1{
+                startX = i
+                startY = j
+            }
+        }
+    }
+    return dfs(grid, startX, startY, allowNum + 1)
+}
+
+func dfs(grid [][]int, startX, startY, left int) int {
+    if startX < 0 || startX >= m || startY < 0 || startY >= n{
+        return 0
+    }
+    if grid[startX][startY] == 2{
+        if left == 0{
+            return 1
+        } else {
+            return 0
+        }
+    }
+    if grid[startX][startY] != 1 && grid[startX][startY] != 0{
+        return 0
+    }
+    res := 0
+    grid[startX][startY] = 8
+    for index := 0; index < 4; index++{
+        tmpX := startX + dx[index]
+        tmpY := startY + dy[index]
+        res += dfs(grid, tmpX, tmpY, left - 1)
+    }
+    grid[startX][startY] = 0
+    return res
+}
+```
