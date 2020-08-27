@@ -24,3 +24,42 @@
 来源：力扣（LeetCode）
 链接：<https://leetcode-cn.com/problems/coin-change>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```golang
+func coinChange(coins []int, amount int) int {
+    dict := map[int]int{}
+    var dp func(n int) int
+    dp = func(n int) int {
+        if _, ok := dict[n]; ok{
+            return dict[n]
+        }
+        if n == 0 {
+            return 0
+        } else if n < 0{
+            return -1
+        }
+        res := int(^uint(0) >> 1)
+        for _, coin := range coins{
+            subproblem := dp(n - coin)
+            if subproblem == -1{
+                continue
+            }
+            res = min(res, 1 + subproblem)
+        }
+        if res == int(^uint(0) >> 1){
+            dict[n] = -1
+        } else {
+            dict[n] = res
+        }
+        return dict[n]
+    }
+    return dp(amount)
+}
+
+func min(a, b int) int{
+    if a < b{
+        return a
+    }
+    return b
+}
+```
