@@ -63,3 +63,30 @@ func min(a, b int) int{
     return b
 }
 ```
+
+```golang
+func coinChange(coins []int, amount int) int {
+    dp := make([]int, amount + 1)
+    for index, _ := range dp{
+        dp[index] = int(^uint(0) >> 1) - 1
+    }
+    dp[0] = 0
+    for _, coin := range coins{
+        for index := coin; index <= amount; index++{
+            dp[index] = min(dp[index], dp[index - coin] + 1)
+        }
+    }
+    if dp[amount] == (int(^uint(0) >> 1) - 1){
+        return -1
+    } else {
+        return dp[amount]
+    }
+}
+
+func min(a, b int) int{
+    if a < b{
+        return a
+    }
+    return b
+}
+```
