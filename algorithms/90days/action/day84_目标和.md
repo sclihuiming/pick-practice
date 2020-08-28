@@ -29,3 +29,28 @@
 来源：力扣（LeetCode）
 链接：<https://leetcode-cn.com/problems/target-sum>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```golang
+func findTargetSumWays(nums []int, S int) int {
+    sum := 0
+    for _, num := range nums{
+        sum += num
+    }
+    if sum < S{
+        return 0
+    }
+    size := len(nums)
+    target := (S + sum) / 2
+    if (S + sum) % 2 != 0{
+        return 0
+    }
+    dp := make([]int, target + 1)
+    dp[0] = 1
+    for index :=0; index < size; index++{
+        for j := target; j >= nums[index]; j--{
+            dp[j] = dp[j] + dp[j - nums[index]]
+        }
+    }
+    return dp[target]
+}
+```
