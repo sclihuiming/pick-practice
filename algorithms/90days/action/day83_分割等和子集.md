@@ -29,3 +29,31 @@
 来源：力扣（LeetCode）
 链接：<https://leetcode-cn.com/problems/partition-equal-subset-sum>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```golang
+func canPartition(nums []int) bool {
+    sum := 0
+    for _, num := range nums{
+        sum += num
+    }
+    if sum % 2 != 0{
+        return false
+    }
+
+    target := sum / 2
+    dp := make([]bool, target + 1)
+    dp[0] = true
+
+    for index := 0; index < len(nums); index++{
+        for j := target; j >= nums[index]; j--{
+            if j - nums[index] >= 0{
+                if !dp[j]{
+                    dp[j] = dp[j - nums[index]]
+                }
+            }
+
+        }
+    }
+    return dp[target]
+}
+```
