@@ -32,3 +32,41 @@
 来源：力扣（LeetCode）
 链接：<https://leetcode-cn.com/problems/ones-and-zeroes>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```golang
+func findMaxForm(strs []string, m int, n int) int {
+    dp := make([][]int, m + 1)
+    for index, _ := range dp{
+        dp[index] = make([]int, n + 1)
+    }
+
+    for _, str := range strs{
+        count := countzeroesones(str)
+        for i := m; i >= count[0]; i--{
+            for j := n; j >= count[1]; j--{
+                dp[i][j] = max(dp[i][j], 1 + dp[i - count[0]][j - count[1]])
+            }
+        }
+    }
+    return dp[m][n]
+}
+
+func countzeroesones(str string)[]int{
+    res := make([]int, 2)
+    for _, charCode := range str{
+        if string(charCode) == "0"{
+            res[0]++
+        }else {
+            res[1]++
+        }
+    }
+    return res
+}
+
+func max(a, b int)int{
+    if a > b{
+        return a
+    }
+    return b
+}
+```
