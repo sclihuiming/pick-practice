@@ -30,3 +30,22 @@
 来源：力扣（LeetCode）
 链接：<https://leetcode-cn.com/problems/min-cost-climbing-stairs>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```javascript
+function minCostClimbingStairs(costs) {
+    const len = costs.length
+    if (len === 0) return 0
+    if (len === 1) return costs[0]
+
+    let a = Number. MAX_SAFE_INTEGER
+    let b = costs[1]
+    let temp
+    for (let i = 1; i < len; i++) {
+        temp = a
+        a = Math.min(a, b) + costs[i]
+        b = temp
+    }
+
+    return b
+}
+```
